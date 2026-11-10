@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WAYU Chess Arena — Chess Tournament | ALFA University College</title>
+<meta name="description" content="WAYU Chess — chess tournament at ALFA University College. Free registration. Think, strategize, win. / Shaxmat turniri, ro'yxatdan o'tish bepul.">
+<meta property="og:title" content="WAYU Chess — Chess Tournament">
+<meta property="og:description" content="Free registration. Join the WAYU Chess tournament at ALFA University College.">
+<style>
+:root{--bg:#0b1220;--bg2:#111a2e;--ink:#f3efe3;--mute:#9fb0c8;--gold:#d4a63c;--line:#223152;--ok:#3fbf7f}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(ellipse at 50% 0%,#16254a 0%,var(--bg) 60%);background-attachment:fixed;color:var(--ink);font:17px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+#bg{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+.page{position:relative;z-index:1}
+.wrap{max-width:980px;margin:0 auto;padding:0 20px}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+nav{display:flex;justify-content:space-between;align-items:center;padding:18px 20px;max-width:980px;margin:0 auto}
+.logo{font-weight:800;letter-spacing:.02em}.logo span{font-weight:400;color:var(--mute)}
+.logo{display:flex;align-items:center;gap:12px}.logo .sep{width:1.5px;height:22px;background:var(--line)}
+.lang button{background:none;border:1.5px solid var(--line);color:var(--mute);padding:6px 12px;font-weight:700;cursor:pointer}
+.lang button:first-child{border-radius:999px 0 0 999px}.lang button:last-child{border-radius:0 999px 999px 0;border-left:0}
+.lang button[aria-pressed=true]{background:var(--gold);color:#1a1405;border-color:var(--gold)}
+.hero{min-height:78vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:30px 20px 60px}
+.motto{letter-spacing:.35em;color:var(--gold);font-weight:700;font-size:14px;margin:0 0 10px}
+.knights{font-size:46px;color:var(--gold);margin:0}
+.queen{font-size:38px;color:var(--ink);margin:4px 0}
+h1{font-size:clamp(48px,12vw,110px);line-height:1;margin:0;font-weight:900;letter-spacing:.04em}
+.sub{letter-spacing:.3em;color:var(--mute);margin:10px 0 18px;font-size:14px}
+.handle{color:var(--gold);font-weight:700;text-decoration:none}
+.btn{display:inline-block;margin-top:26px;background:var(--gold);color:#1a1405;font-weight:800;padding:14px 28px;border-radius:10px;text-decoration:none;border:0;font-size:17px;cursor:pointer}
+section{padding:70px 0;border-top:1px solid var(--line);background:linear-gradient(var(--bg2)00,transparent)}
+h2{font-size:clamp(28px,5vw,40px);margin:0 0 8px}
+.lead{color:var(--mute);margin:0 0 30px;max-width:60ch}
+.panel{background:rgba(17,26,46,.92);border:1px solid var(--line);border-radius:14px;padding:26px}
+form{display:grid;gap:16px;grid-template-columns:1fr 1fr}
+.f{display:flex;flex-direction:column;gap:6px}.f.full{grid-column:1/-1}
+label{font-weight:700;font-size:15px}
+input,select{background:#0b1220;color:var(--ink);border:1.5px solid var(--line);border-radius:8px;padding:12px;font:inherit;width:100%}
+.hp{position:absolute;left:-9999px}
+.err{color:#ff8a7a;min-height:1.4em;grid-column:1/-1;margin:0}
+.done{text-align:center}
+.done h3{font-size:26px;margin:0 0 6px;color:var(--ok)}
+.confirm{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:18px}
+.confirm a{padding:13px 22px;border-radius:10px;font-weight:800;text-decoration:none;color:#fff}
+.tg{background:#229ed9}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px}
+.card{background:rgba(17,26,46,.92);border:1px solid var(--line);border-radius:14px;padding:20px}
+.card h3{margin:0 0 6px;color:var(--gold)}.card p{margin:0;color:var(--mute);font-size:16px}
+.pc{font-size:34px;color:var(--ink);line-height:1}
+.pl{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:18px}
+.pl article{background:rgba(17,26,46,.92);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.ph{position:relative;aspect-ratio:4/5;background:linear-gradient(135deg,#1a2a4a,#0b1220);display:flex;align-items:center;justify-content:center;font-size:56px;font-weight:900;color:var(--gold)}
+.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.pl .t{padding:14px 16px}.pl h3{margin:0;font-size:19px}.pl small{color:var(--gold);font-weight:700}.pl p{margin:6px 0 0;color:var(--mute);font-size:15px}
+footer{padding:30px 20px 50px;text-align:center;color:var(--mute);font-size:15px;border-top:1px solid var(--line)}
+small.h{color:var(--mute);font-size:13px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin:0 0 34px}
+.stats div{background:rgba(17,26,46,.92);border:1px solid var(--line);border-radius:14px;padding:16px;text-align:center}
+.stats b{display:block;font-size:34px;color:var(--gold);line-height:1.1}.stats span{color:var(--mute);font-size:15px}
+.pl .ph span{font-size:64px;text-shadow:0 0 30px rgba(212,166,60,.5)}
+.pl .ph::after{content:"♞";position:absolute;right:12px;bottom:6px;font-size:34px;color:rgba(212,166,60,.25)}
+@media(max-width:640px){form{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+.subhead{font-size:23px;color:var(--gold);margin:32px 0 16px}
+.timeline{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+.timeline article{background:rgba(17,26,46,.92);border:1px solid var(--line);border-radius:14px;padding:20px}
+.timeline article>b{color:var(--gold);font-size:14px;letter-spacing:.08em}
+.timeline h3{margin:8px 0;color:var(--ink)}.timeline p{color:var(--mute);margin:0}
+.photo-credit,.source-note{font-size:13px;margin-top:18px}
+.pl .ph img{display:block}
+.board-panel{max-width:560px;margin:auto;background:rgba(17,26,46,.92);border:1px solid var(--line);border-radius:16px;padding:22px}
+.board-status{text-align:center;color:var(--gold);font-weight:700;margin-bottom:14px;min-height:24px}
+.chessboard{display:grid;grid-template-columns:repeat(8,1fr);width:min(100%,480px);aspect-ratio:1;margin:auto;border:5px solid #9b7830;border-radius:5px;overflow:hidden}
+.square{border:0;border-radius:0;display:flex;align-items:center;justify-content:center;aspect-ratio:1;padding:0;font-size:clamp(25px,6vw,48px);cursor:pointer;line-height:1}
+.square.light{background:#eee4ce;color:#1b2434}.square.dark{background:#78906f;color:#101827}
+.square.selected{outline:4px solid #e5b94f;outline-offset:-4px}
+.square.legal::after{content:"";width:23%;height:23%;border-radius:50%;background:#d4a63c;opacity:.85}
+.square.capture{box-shadow:inset 0 0 0 5px #d4a63c}
+.square:focus-visible{outline:4px solid #e5b94f;outline-offset:-4px;z-index:1}
+.board-controls{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:18px}
+.btn.secondary{background:transparent;color:var(--gold);border:1px solid var(--gold)}
+.board-help{font-size:13px;color:var(--mute);text-align:center;margin:14px 0 0}
+@media(max-width:480px){.board-panel{padding:12px}.chessboard{border-width:3px}}
+
+
+.online-controls{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:10px 0}.online-controls input{max-width:130px;text-transform:uppercase}.game-options{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px;margin-bottom:16px;text-align:left}
+.game-field{display:flex;flex-direction:column;gap:5px;color:var(--mute);font-size:13px;font-weight:700}
+.game-field select,.game-field input{font-size:14px;padding:9px;min-width:0}
+.game-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:18px}
+.game-stats div{background:#0b1220;border:1px solid var(--line);border-radius:10px;padding:10px;text-align:center}
+.game-stats b{display:block;color:var(--gold);font-size:23px}.game-stats span{font-size:12px;color:var(--mute)}
+.leaderboard-panel{max-width:560px;margin:16px auto 0;padding:18px 22px;background:rgba(17,26,46,.92);border:1px solid var(--line);border-radius:14px}
+.leaderboard-panel h3{margin:0;color:var(--gold)}.leaderboard-panel ol{padding-left:24px;margin-bottom:0;color:var(--ink)}.leaderboard-panel li{padding:4px 0}.leaderboard-panel li span{color:var(--mute);float:right}
+@media(max-width:480px){.game-options{grid-template-columns:1fr 1fr}.game-field:last-child{grid-column:1/-1}}
+
+
+/* Registration form styles */
+.panel{background:rgba(17,26,46,.92);border:1px solid var(--line);border-radius:14px;padding:26px}
+form{display:grid;gap:16px;grid-template-columns:1fr 1fr}
+.f{display:flex;flex-direction:column;gap:6px}.f.full{grid-column:1/-1}
+label{font-weight:700;font-size:15px}
+input,select{background:#0b1220;color:var(--ink);border:1.5px solid var(--line);border-radius:8px;padding:12px;font:inherit;width:100%}
+.hp{position:absolute;left:-9999px}
+.err{color:#ff8a7a;min-height:1.4em;grid-column:1/-1;margin:0}
+.done{text-align:center}
+.confirm{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:18px}
+.tg{background:#229ed9}
+small.h{color:var(--mute);font-size:13px}
+@media(max-width:640px){form{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<canvas id="bg" aria-hidden="true"></canvas>
+<div class="page">
+<nav>
+  <div class="logo">ALFA<span> University</span><i class="sep"></i>WAYU</div>
+  <div class="lang"><button data-l="en" aria-pressed="false">EN</button><button data-l="uz" aria-pressed="true">UZ</button></div>
+</nav>
+
+<header class="hero">
+  <p class="motto">THINK • STRATEGIZE • WIN</p>
+  <p class="knights" aria-hidden="true">♚♞</p>
+  <p class="queen" aria-hidden="true">♛</p>
+  <h1>WAYUCHESS</h1>
+  <p class="sub">ALFA UNIVERSITY COLLEGE</p>
+  <p class="queen" aria-hidden="true">♛</p>
+<a class="btn" href="#register" data-i="cta">Ro'yxatdan o'tish</a>
+</header>
+
+<section id="register">
+ <div class="wrap">
+  <h2 data-i="regT">Ro'yxatdan o'tish</h2>
+  <p class="lead" data-i="regL">Ro'yxatdan o'tish bepul. Formani to'ldiring, so'ng Telegram botga o'ting.</p>
+  <div class="panel" id="panel">
+   <form id="form" novalidate>
+     <div class="f full"><label for="name" data-i="name">Ism va familiya</label><input id="name" name="name" autocomplete="name" required maxlength="80"></div>
+     <div class="f"><label for="phone" data-i="phone">Telefon raqam</label><input id="phone" name="phone" type="tel" autocomplete="tel" placeholder="+998 90 123 45 67  /  +60 12 345 6789" required maxlength="25"><small class="h" data-i="phoneH">O'zbekiston (+998) yoki Malayziya (+60) raqami</small></div>
+     <div class="f full"><label for="uni" data-i="uni">Qaysi universitetda o'qiysiz?</label>
+       <select id="uni" name="uni" required>
+         <option value="" data-i="pick">Tanlang…</option>
+         <option>XIAMEN</option><option>APU</option><option>UCSI</option><option>ALFA UNIVERSITY</option><option>CITY</option><option>MAHSA</option>
+         <option value="OTHERS" data-i="others">OTHERS (boshqa universitet)</option>
+         <option value="NOT_STUDENT" data-i="notStu">Talaba emasman / bitirganman</option>
+       </select></div>
+     <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+     <p class="err" id="err" role="alert"></p>
+     <div class="f full"><button class="btn" id="send" type="submit" style="margin:0" data-i="send">Ro'yxatdan o'tish</button></div>
+   </form>
+   <div class="done" id="done" hidden>
+     <h3 data-i="okT">Ro'yxatdan o'tdingiz! ✔</h3>
+     <p data-i="okL">Keyingi qadam uchun Telegram botga o'ting.</p>
+     <div class="confirm">
+       <a class="tg" id="tgLink" href="https://t.me/wayuchess_bot" target="_blank" rel="noopener" data-i="tg">Telegram botga o'tish</a>
+     </div>
+   </div>
+  </div>
+ </div>
+</section>
+<section id="about">
+ <div class="wrap">
+  <h2 data-i="abT">Shaxmat haqida</h2>
+  <p class="lead" data-i="abL">Shaxmat — ikki o'yinchi 64 katakli taxtada o'ynaydigan strategik o'yin. Maqsad — raqibning shohiga mat qo'yish.</p>
+  <div class="grid">
+    <div class="card"><h3 data-i="a1t">Tarixi</h3><p data-i="a1">Shaxmat Hindistonda taxminan 1500 yil oldin paydo bo'lgan va Markaziy Osiyo orqali dunyoga tarqalgan.</p></div>
+    <div class="card"><h3 data-i="a2t">Nega foydali</h3><p data-i="a2">U diqqat, xotira va rejalashtirishni rivojlantiradi hamda sabrni o'rgatadi.</p></div>
+    <div class="card"><h3 data-i="a3t">Natija</h3><p data-i="a3">G'alaba — 1 ochko, durang — ½, mag'lubiyat — 0. Eng ko'p ochko to'plagan o'yinchi turnirda yutadi.</p></div>
+  </div>
+ </div>
+</section>
+
+<section id="rules">
+ <div class="wrap">
+  <h2 data-i="rlT">Asosiy qoidalar</h2>
+  <p class="lead" data-i="rlL">Oq donalar birinchi yuradi. Har bir dona o'ziga xos yuradi.</p>
+  <div class="grid">
+    <div class="card"><div class="pc">♚</div><h3 data-i="kT">Shoh</h3><p data-i="k">Har tomonga bir katak yuradi. Uni hujum ostida qoldirib bo'lmaydi.</p></div>
+    <div class="card"><div class="pc">♛</div><h3 data-i="qT">Farzin</h3><p data-i="q">Eng kuchli dona: to'g'ri va diagonal bo'ylab istagancha katak yuradi.</p></div>
+    <div class="card"><div class="pc">♜</div><h3 data-i="rT">Rux</h3><p data-i="r">Gorizontal va vertikal bo'ylab istagancha katak yuradi.</p></div>
+    <div class="card"><div class="pc">♝</div><h3 data-i="bT">Fil</h3><p data-i="b">Faqat diagonal bo'ylab yuradi va rangini o'zgartirmaydi.</p></div>
+    <div class="card"><div class="pc">♞</div><h3 data-i="nT">Ot</h3><p data-i="n">"G" harfi shaklida yuradi va boshqa donalar ustidan sakray oladi.</p></div>
+    <div class="card"><div class="pc">♟</div><h3 data-i="pT">Piyoda</h3><p data-i="p">Oldinga bir katak yuradi, diagonal bo'yicha oladi. Oxirgi qatorga yetsa, boshqa donaga aylanadi.</p></div>
+  </div>
+  <div class="card" style="margin-top:18px"><h3 data-i="sp">Maxsus yurishlar</h3><p data-i="spL">Rokirovka (shoh va rux birga yuradi), piyodani "o'tishda olish" (en passant) va piyodaning aylanishi — shaxmatning uchta maxsus yurishi. Mat — shoh hujum ostida va qochishga yo'li yo'q holat; pat va durang o'yinni tugatadi.</p></div>
+  <div class="grid" style="margin-top:18px">
+   <div class="card"><h3 data-i="checkT">Shax, mat va pat</h3><p data-i="checkL">Shax — shohga hujum. Shaxdan qochish, hujum qilayotgan donani olish yoki hujum yo‘lini to‘sish kerak. Matda qonuniy qochish yo‘li qolmaydi. Patda shoh shaxda emas, lekin yurish navbati kelgan o‘yinchida qonuniy yurish yo‘q — natija durang.</p></div>
+   <div class="card"><h3 data-i="castleT">Rokirovka shartlari</h3><p data-i="castleL">Shoh va tanlangan rux avval yurmagan bo‘lishi, ular orasida dona bo‘lmasligi kerak. Shoh shaxda turgan, hujum ostidagi katakdan o‘tadigan yoki shunday katakka keladigan bo‘lsa, rokirovka mumkin emas.</p></div>
+   <div class="card"><h3 data-i="drawT">Durang holatlari</h3><p data-i="drawL">Pat, tomonlarning kelishuvi, mat qo‘yish uchun yetarli dona qolmasligi, bir xil pozitsiyaning uch marta takrorlanishi yoki 50 yurish qoidasi durangga olib kelishi mumkin. Rasmiy o‘yinda bu holatlar qoidalarga muvofiq da’vo yoki hakam qarorini talab qilishi mumkin.</p></div>
+  </div>
+ </div>
+</section>
+
+
+<section id="players">
+ <div class="wrap">
+  <h2 data-i="plT">Mashhur shaxmatchilar</h2>
+  <p class="lead" data-i="plL">O‘zbekiston va dunyo shaxmatining taniqli grossmeysterlari.</p>
+  <h3 class="subhead" data-i="uzPlayers">O‘zbekiston</h3>
+  <div class="pl">
+   <article><div class="ph"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Javokhir_Sindarov_at_the_46th_FIDE_Chess_Olympiad_(2).jpg" alt="Javokhir Sindarov" loading="lazy"></div><div class="t"><h3>Javokhir Sindarov</h3><small>O‘zbekiston · GM</small><p data-i="p1">2026-yilgi Nomzodlar turniri g‘olibi. 2022 va 2026-yilgi Olimpiada oltin medali sohibi.</p></div></article>
+   <article><div class="ph"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Nodirbek_Abdusattorov_at_the_46th_FIDE_Chess_Olympiad_(2).jpg" alt="Nodirbek Abdusattorov" loading="lazy"></div><div class="t"><h3>Nodirbek Abdusattorov</h3><small>O‘zbekiston · GM</small><p data-i="p2">2021-yilda 17 yoshida FIDE rapid bo‘yicha jahon chempioni bo‘lgan. 2022 va 2026-yilgi Olimpiada oltin jamoasi a’zosi.</p></div></article>
+   <article><div class="ph"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Nodirbek_Yakubboev_at_the_46th_FIDE_Chess_Olympiad_(2).jpg" alt="Nodirbek Yakubboev" loading="lazy"></div><div class="t"><h3>Nodirbek Yakubboev</h3><small>O‘zbekiston · GM</small><p data-i="p3">O‘zbekiston terma jamoasi a’zosi, 2022 va 2026-yilgi Olimpiada g‘olib jamoalarida qatnashgan.</p></div></article>
+   <article><div class="ph"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Shamsiddin_Vokhidov_at_the_46th_FIDE_Chess_Olympiad_(2).jpg" alt="Shamsiddin Vokhidov" loading="lazy"></div><div class="t"><h3>Shamsiddin Vokhidov</h3><small>O‘zbekiston · GM</small><p data-i="p5">O‘zbekiston terma jamoasi grossmeysteri, 2022 va 2026-yilgi Olimpiada oltin medali sohibi.</p></div></article>
+   <article><div class="ph"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Rustam_Kasimdzhanov_at_the_46th_FIDE_Chess_Olympiad_(2).jpg" alt="Rustam Kasimdzhanov" loading="lazy"></div><div class="t"><h3>Rustam Kasimdzhanov</h3><small>O‘zbekiston · GM</small><p data-i="p4">2004-yilgi FIDE jahon chempioni. O‘zbekiston terma jamoasining sardori va murabbiyi.</p></div></article>
+  </div>
+  <h3 class="subhead" data-i="worldPlayers">Jahon shaxmatchilari</h3>
+  <div class="pl">
+   <article><div class="ph"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/MagnusCarlsen17f.jpg" alt="Magnus Carlsen" loading="lazy"></div><div class="t"><h3>Magnus Carlsen</h3><small>Norvegiya · GM</small><p data-i="w1">2013–2023-yillarda klassik shaxmat bo‘yicha jahon chempioni. Rapid va blitz yo‘nalishlarida ham ko‘p karra chempion.</p></div></article>
+   <article><div class="ph"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Gukesh_in_2024.jpg" alt="D. Gukesh" loading="lazy"></div><div class="t"><h3>D. Gukesh</h3><small>Hindiston · GM</small><p data-i="w2">2024-yilda jahon chempionligini qo‘lga kiritgan va bu unvonga erishgan eng yosh klassik jahon chempioni.</p></div></article>
+  </div>
+  <p class="photo-credit" data-i="photoCredit">Rasmlar: Wikimedia Commons. Mualliflik va litsenziya ma’lumotlari rasm manbalarida keltirilgan.</p>
+ </div>
+</section>
+
+
+<section id="history">
+ <div class="wrap">
+  <h2 data-i="histT">Shaxmat tarixi</h2>
+  <p class="lead" data-i="histLead">Shaxmat asrlar davomida turli madaniyatlarda rivojlanib, bugungi xalqaro sport turiga aylandi.</p>
+  <div class="timeline">
+   <article><b>VI asr</b><h3 data-i="h1t">Hindiston — Chaturanga</h3><p data-i="h1">Shaxmatning qadimgi ajdodi Hindistonda shakllangan deb hisoblanadi. O‘yin keyinchalik Forsga tarqalib, “shatranj” nomini olgan.</p></article>
+   <article><b>VII–X asrlar</b><h3 data-i="h2t">Fors va musulmon dunyosi</h3><p data-i="h2">Savdo, ilm-fan va madaniy aloqalar orqali shatranj Yaqin Sharq hamda Markaziy Osiyoda keng tarqaldi.</p></article>
+   <article><b>XV asr</b><h3 data-i="h3t">Zamonaviy qoidalar</h3><p data-i="h3">Yevropada farzin va piyoda yurishlari o‘zgardi. Bu o‘zgarishlar bugungi tezkor shaxmatga asos bo‘ldi.</p></article>
+   <article><b>1886</b><h3 data-i="h4t">Birinchi rasmiy jahon chempionligi</h3><p data-i="h4">Wilhelm Steinitz va Johannes Zukertort uchrashuvi ko‘pincha birinchi rasmiy jahon chempionligi matchi sifatida qayd etiladi.</p></article>
+   <article><b>1999</b><h3 data-i="h5t">Onlayn davr</h3><p data-i="h5">Internet va raqamli platformalar shaxmatni butun dunyo bo‘ylab o‘rganish va o‘ynashni osonlashtirdi.</p></article>
+  </div>
+ </div>
+</section>
+<section id="uzchess">
+ <div class="wrap">
+  <h2 data-i="uzT">O‘zbekiston shaxmati</h2>
+  <p class="lead" data-i="uzLead">O‘zbekiston shaxmat maktabi xalqaro maydonda yirik natijalarga erishgan.</p>
+  <div class="grid">
+   <div class="card"><h3>2022 · Chennai</h3><p data-i="uz2022">O‘zbekiston erkaklar terma jamoasi 44-Butunjahon shaxmat olimpiadasida oltin medalni qo‘lga kiritdi.</p></div>
+   <div class="card"><h3>2024 · Budapest</h3><p data-i="uz2024">O‘zbekiston jamoasi 45-Butunjahon shaxmat olimpiadasida bronza medalini qo‘lga kiritdi.</p></div>
+   <div class="card"><h3>2026 · Samarkand</h3><p data-i="uz2026">O‘zbekiston jamoasi 46-Butunjahon shaxmat olimpiadasida yana oltin medalni qo‘lga kiritdi.</p></div>
+  </div>
+  <p class="lead source-note" data-i="uzSource">Manbalar: FIDE va O‘zbekiston davlat axborot portali.</p>
+ </div>
+</section>
+<section id="benefits">
+ <div class="wrap">
+  <h2 data-i="benT">Shaxmatning foydalari</h2>
+  <p class="lead" data-i="benLead">Shaxmat muntazam mashq orqali fikrlash va o‘rganish ko‘nikmalarini rivojlantirishga yordam beradi.</p>
+  <div class="grid">
+   <div class="card"><div class="pc">◎</div><h3 data-i="b1t">Diqqat</h3><p data-i="b1">Vaziyatni kuzatish va muhim tafsilotlarga e’tibor berishni mashq qildiradi.</p></div>
+   <div class="card"><div class="pc">⌁</div><h3 data-i="b2t">Rejalashtirish</h3><p data-i="b2">Bir necha yurishni oldindan o‘ylash va turli imkoniyatlarni solishtirishga o‘rgatadi.</p></div>
+   <div class="card"><div class="pc">◇</div><h3 data-i="b3t">Muammo yechish</h3><p data-i="b3">Murakkab vaziyatlarni tahlil qilish va qaror qabul qilishni mashq qildiradi.</p></div>
+   <div class="card"><div class="pc">↻</div><h3 data-i="b4t">Sabr va sport madaniyati</h3><p data-i="b4">Navbat kutish, raqibni hurmat qilish va natijadan xulosa chiqarishni o‘rgatadi.</p></div>
+  </div>
+ </div>
+</section>
+<section id="play">
+ <div class="wrap">
+  <h2 data-i="boardT">Interaktiv shaxmat taxtasi</h2>
+  <p class="lead" data-i="boardLead">Donani tanlang, so‘ng boradigan katakni bosing. Yurishlar qonuniyligi tekshiriladi.</p>
+  <div class="board-panel">
+   <div class="game-options">
+    <label class="game-field"><span>O‘yin rejimi / Game mode</span><select id="gameMode"><option value="ai">AI bilan o‘ynash / Play vs AI</option><option value="local">2 o‘yinchi / Local 2-player</option><option value="online">Onlayn / Online</option></select></label>
+    <label class="game-field"><span>Daraja / Difficulty</span><select id="aiLevel"><option value="1">Boshlang‘ich / Easy</option><option value="2" selected>O‘rta / Medium</option><option value="3">Kuchli / Hard</option></select></label>
+    <label class="game-field"><span>O‘yinchi nomi / Player name</span><input id="playerName" maxlength="24" placeholder="Ismingiz / Your name"></label>
+   </div>
+   <div class="online-controls" id="onlineControls" hidden>
+    <button class="btn" id="createRoom" type="button">Xona yaratish / Create room</button>
+    <input id="roomCode" maxlength="8" placeholder="Room code" aria-label="Room code">
+    <button class="btn secondary" id="joinRoom" type="button">Xonaga qo‘shilish / Join</button>
+    <p id="roomMessage" class="board-help" aria-live="polite"></p>
+   </div>
+   <div class="board-status" id="boardStatus" aria-live="polite" data-i="boardReady">Oq donalar yuradi.</div>
+   <div class="chessboard" id="chessboard" role="grid" aria-label="Interactive chessboard"></div>
+   <div class="board-controls"><button class="btn" id="undoMove" type="button" data-i="undo">Ortga</button><button class="btn secondary" id="resetBoard" type="button" data-i="reset">Qayta boshlash</button></div>
+   <div class="game-stats" id="gameStats"><div><b id="eloValue">1000</b><span>ELO</span></div><div><b id="pointsValue">0</b><span>Turnir ochkosi</span></div><div><b id="winsValue">0</b><span>G‘alaba</span></div></div>
+   <p class="board-help" id="engineStatus">AI yuklanmoqda…</p>
+   <p class="board-help" data-i="boardHelp">AI rejimida siz oq donalarda o‘ynaysiz. Lokal rejimda ikki kishi bitta qurilmada o‘ynaydi.</p>
+  </div>
+  <div class="leaderboard-panel"><h3>WAYU Chess — Lokal reyting</h3><p class="board-help">Natijalar hozircha ushbu brauzerda saqlanadi. Umumiy onlayn reyting uchun Supabase sozlanadi.</p><ol id="localLeaderboard"></ol></div>
+ </div>
+</section>
+
+<footer>WAYU CHESS ARENA · Independent chess project · ALFA University College</footer>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/supabase-config.js"></script>
+<script>
+/* ----- Tillar ----- */
+var EN={cta:"Register",regT:"Register",regL:"Registration is free. Fill in the form, then continue via Telegram.",name:"Full name",phone:"Phone number",uni:"Which university do you study at?",pick:"Choose…",others:"OTHERS (another university)",notStu:"Not a student / graduate",send:"Register",okT:"You're registered! ✔",okL:"Next step: open the Telegram bot and follow its instructions.",tg:"Open Telegram bot",
+abT:"About chess",abL:"Chess is a strategy game for two players on a 64-square board. The goal is to checkmate the opponent's king.",a1t:"History",a1:"Chess appeared in India about 1,500 years ago and spread to the world through Central Asia.",a2t:"Why it helps",a2:"It builds focus, memory and planning, and teaches patience.",a3t:"Scoring",a3:"Win = 1 point, draw = ½, loss = 0. The player with the most points wins the tournament.",
+rlT:"Detailed chess rules",rlL:"White moves first. Each piece has its own movement, and a move may not leave your own king in check.",checkT:"Check, checkmate and stalemate",checkL:"Check means the king is under attack. You must escape check, capture the attacking piece or block the attack. In checkmate there is no legal escape. In stalemate the king is not in check, but the player to move has no legal move — the result is a draw.",castleT:"Castling conditions",castleL:"Neither the king nor the chosen rook may have moved before, and the squares between them must be empty. Castling is not allowed if the king is in check, crosses an attacked square, or lands on an attacked square.",drawT:"Draw situations",drawL:"A draw can occur by stalemate, agreement, insufficient mating material, threefold repetition or the 50-move rule. In official play, some cases require a claim or arbiter decision under the rules.",kT:"King",k:"Moves one square in any direction. It can never be left in check.",qT:"Queen",q:"The strongest piece: moves any number of squares straight or diagonally.",rT:"Rook",r:"Moves any number of squares horizontally or vertically.",bT:"Bishop",b:"Moves only diagonally and stays on its square colour.",nT:"Knight",n:"Moves in an L-shape and can jump over other pieces.",pT:"Pawn",p:"Moves one square forward and captures diagonally. On the last rank it promotes.",sp:"Special moves",spL:"Castling (king and rook move together), en passant, and pawn promotion. Checkmate means the king is attacked with no escape; stalemate and draws end the game.",
+plT:"Famous chess players",plL:"Well-known grandmasters from Uzbekistan and around the world.",uzPlayers:"Uzbekistan",worldPlayers:"World chess players",photoCredit:"Photos: Wikimedia Commons. Author and licence details are available at the image sources.",
+p1:"Winner of the 2026 Candidates Tournament. Member of Uzbekistan’s gold-medal teams at the 2022 and 2026 Olympiads.",p2:"Became World Rapid Champion in 2021 at age 17. Member of Uzbekistan’s gold-medal teams at the 2022 and 2026 Olympiads.",p3:"Member of Uzbekistan’s national team and the gold-medal teams at the 2022 and 2026 Olympiads.",p5:"Uzbek grandmaster and member of the gold-medal teams at the 2022 and 2026 Olympiads.",p4:"FIDE World Champion in 2004. Captain of Uzbekistan’s gold-medal team at the 2026 Chess Olympiad.",histT:"History of chess",histLead:"Chess developed across cultures over centuries and became an international sport.",h1t:"India — Chaturanga",h1:"Chess’s ancient ancestor is believed to have taken shape in India, then spread to Persia where it became known as shatranj.",h2t:"Persia and the Muslim world",h2:"Through trade, scholarship and cultural exchange, shatranj spread across the Middle East and Central Asia.",h3t:"Modern rules",h3:"In Europe, the queen and pawn moves changed during the 15th century, helping shape modern chess.",h4t:"First recognised world championship match",h4:"The 1886 match between Wilhelm Steinitz and Johannes Zukertort is widely recognised as the first official World Championship match.",h5t:"The online era",h5:"The internet and digital platforms made learning and playing chess accessible worldwide.",uzT:"Chess in Uzbekistan",uzLead:"Uzbekistan’s chess community has achieved major results on the international stage.",uz2022:"Uzbekistan’s open team won gold at the 44th Chess Olympiad in Chennai.",uz2024:"Uzbekistan won the bronze medal at the 45th Chess Olympiad in Budapest.",uz2026:"Uzbekistan won gold again at the 46th Chess Olympiad in Samarkand.",uzSource:"Sources: FIDE and Uzbekistan’s official government news portal.",benT:"Benefits of chess",benLead:"Regular chess practice can help develop thinking and learning skills.",b1t:"Focus",b1:"Practises observing a position and noticing important details.",b2t:"Planning",b2:"Encourages thinking several moves ahead and comparing options.",b3t:"Problem solving",b3:"Practises analysing complex positions and making decisions.",b4t:"Patience and sportsmanship",b4:"Teaches turn-taking, respect for opponents and learning from results.",boardT:"Interactive chessboard",boardLead:"Select a piece, then select its destination square. Legal moves are checked.",boardReady:"White to move.",undo:"Undo",reset:"Restart",boardHelp:"Note: this is a practice board. A tournament clock and online opponent are not included.",w1:"World Champion in classical chess from 2013 to 2023; also a multiple-time rapid and blitz champion.",w2:"Won the World Championship in 2024, becoming the youngest undisputed classical world champion.",phoneH:"Uzbekistan (+998) or Malaysia (+60) number",
+fill:"Please fill in all fields correctly.",phoneBad:"Enter a valid Uzbekistan (+998) or Malaysia (+60) number.",fail:"Could not send. Please try again."};
+var UZ={};document.querySelectorAll('[data-i]').forEach(function(e){UZ[e.dataset.i]=e.textContent});
+UZ.phoneBad="To'g'ri O'zbekiston (+998) yoki Malayziya (+60) raqamini kiriting.";
+UZ.fill="Iltimos, barcha maydonlarni to'g'ri to'ldiring.";
+UZ.fail="Yuborib bo'lmadi. Qayta urinib ko'ring.";
+var lang='uz';
+function setLang(l){lang=l;var d=l==='en'?EN:UZ;document.documentElement.lang=l;
+ document.querySelectorAll('[data-i]').forEach(function(e){if(d[e.dataset.i])e.textContent=d[e.dataset.i]});
+ document.querySelectorAll('.lang button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.l===l))});}
+document.querySelectorAll('.lang button').forEach(function(b){b.onclick=function(){setLang(b.dataset.l)}});
+
+/* ----- Registration form ----- */
+
+var form=document.getElementById('form'),err=document.getElementById('err');
+function normPhone(v){var t=String(v).replace(/[\s\-().]/g,'');
+ if(/^(\+?60|0)1\d{8,9}$/.test(t)){var r=t.replace(/^(\+?60|0)/,'');return '+60 '+r.slice(0,2)+' '+r.slice(2)}
+ if(/^(\+?998)?\d{9}$/.test(t)){var d=t.slice(-9);return '+998 '+d.slice(0,2)+' '+d.slice(2,5)+' '+d.slice(5,7)+' '+d.slice(7)}
+ return null}
+form.onsubmit=function(ev){ev.preventDefault();err.textContent='';
+ var f=new FormData(form),d={};f.forEach(function(v,k){d[k]=v});
+ var T=lang==='en'?EN:UZ,ph=normPhone(d.phone||'');
+ if(!d.name||d.name.trim().length<2||!d.uni){err.textContent=T.fill;return}
+ if(!ph){err.textContent=T.phoneBad;return}
+ d.phone=ph;
+ var btn=document.getElementById('send');btn.disabled=true;
+ fetch('/api/register',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)})
+  .then(function(r){return r.json().catch(function(){return{ok:false,error:'http_'+r.status}})}).then(function(j){
+   if(!j.ok)throw j.error||0;
+   document.getElementById('tgLink').href='https://t.me/wayuchess_bot?start=registered';
+   form.hidden=true;document.getElementById('done').hidden=false;
+  }).catch(function(e){var m={not_configured:'Server sozlanmagan: Vercel sozlamalari hali tayyor emas.',send_failed:'Telegramga yuborilmadi: bot sozlamalarini tekshirish kerak.',http_404:'/api/register topilmadi: api/register.js fayli yuklanganmi?',http_405:'/api/register yuklanmagan.'};err.textContent=e==='validation'?T.fill:(m[e]||T.fail);btn.disabled=false});
+};
+
+
+
+/* ----- WAYU Chess game: legal moves, AI, local stats ----- */
+(function(){
+ const board=document.getElementById('chessboard'); if(!board)return;
+ const status=document.getElementById('boardStatus'),modeEl=document.getElementById('gameMode'),levelEl=document.getElementById('aiLevel');
+ const engineStatus=document.getElementById('engineStatus'),onlineControls=document.getElementById('onlineControls'),roomMessage=document.getElementById('roomMessage');
+ let sb=null,onlineRoom=null,onlineSide=null,roomChannel=null,remoteUpdate=false;
+ const pieceMap={wk:'♔',wq:'♕',wr:'♖',wb:'♗',wn:'♘',wp:'♙',bk:'♚',bq:'♛',br:'♜',bb:'♝',bn:'♞',bp:'♟'};
+ const STORAGE='wayuChessStatsV1'; let game=null,selected=null,legal=[],engine=null,engineReady=false,engineFailed=false,thinking=false,resultRecorded=false;
+ let stats=loadStats();
+ function loadStats(){try{return JSON.parse(localStorage.getItem(STORAGE))||{elo:1000,points:0,wins:0,draws:0,losses:0,games:[]}}catch(e){return{elo:1000,points:0,wins:0,draws:0,losses:0,games:[]}}}
+ function saveStats(){localStorage.setItem(STORAGE,JSON.stringify(stats));updateStats()}
+ function updateStats(){document.getElementById('eloValue').textContent=stats.elo;document.getElementById('pointsValue').textContent=stats.points;document.getElementById('winsValue').textContent=stats.wins;
+  const list=document.getElementById('localLeaderboard');list.innerHTML='';const name=(document.getElementById('playerName').value||'Player').trim();
+  const row=document.createElement('li');row.textContent=name;const score=document.createElement('span');score.textContent=stats.elo+' ELO · '+stats.points+' pts';row.appendChild(score);list.appendChild(row);
+ }
+ function initSupabase(){try{if(window.supabase&&window.WAYU_SUPABASE_CONFIG&&window.WAYU_SUPABASE_CONFIG.url&&window.WAYU_SUPABASE_CONFIG.anonKey&&!window.WAYU_SUPABASE_CONFIG.url.includes('YOUR_')){sb=window.supabase.createClient(window.WAYU_SUPABASE_CONFIG.url,window.WAYU_SUPABASE_CONFIG.anonKey);engineStatus.textContent='Onlayn o‘yin serveri tayyor.'}else{engineStatus.textContent='Onlayn o‘yin uchun supabase-config.js sozlanishi kerak.'}}catch(e){sb=null}}
+ function setOnlineMessage(t){roomMessage.textContent=t}
+ function makeRoomCode(){return Math.random().toString(36).slice(2,8).toUpperCase()}
+ async function createOnlineRoom(){if(!sb){setOnlineMessage('Avval Supabase sozlamalarini kiriting.');return}try{const code=makeRoomCode(),name=(document.getElementById('playerName').value||'White').trim();const {data,error}=await sb.from('wayu_rooms').insert({room_code:code,fen:new Chess().fen(),white_name:name,black_name:null,status:'waiting',moves:[]}).select().single();if(error)throw error;onlineRoom=data;onlineSide='w';document.getElementById('roomCode').value=code;setOnlineMessage('Xona kodi: '+code+' — do‘stingizga yuboring. Siz oq donalarda o‘ynaysiz.');subscribeRoom() ;init();}
+  catch(e){setOnlineMessage('Xona yaratilmadi: '+(e.message||'Supabase xatosi'))}}
+ async function joinOnlineRoom(){if(!sb){setOnlineMessage('Avval Supabase sozlamalarini kiriting.');return}const code=document.getElementById('roomCode').value.trim().toUpperCase();if(!code){setOnlineMessage('Xona kodini kiriting.');return}try{const {data,error}=await sb.from('wayu_rooms').select('*').eq('room_code',code).eq('status','waiting').maybeSingle();if(error)throw error;if(!data){setOnlineMessage('Xona topilmadi yoki allaqachon to‘lgan.');return}const name=(document.getElementById('playerName').value||'Black').trim();const {data:updated,error:updateError}=await sb.from('wayu_rooms').update({black_name:name,status:'playing'}).eq('id',data.id).eq('status','waiting').select().single();if(updateError)throw updateError;onlineRoom=updated;onlineSide='b';setOnlineMessage('Xonaga qo‘shildingiz. Siz qora donalarda o‘ynaysiz.');subscribeRoom();if(game)game.load(onlineRoom.fen);render()}catch(e){setOnlineMessage('Xonaga qo‘shilmadi: '+(e.message||'Supabase xatosi'))}}
+ function subscribeRoom(){if(!sb||!onlineRoom)return;if(roomChannel)sb.removeChannel(roomChannel);roomChannel=sb.channel('wayu-room-'+onlineRoom.id).on('postgres_changes',{event:'UPDATE',schema:'public',table:'wayu_rooms',filter:'id=eq.'+onlineRoom.id},payload=>{if(!payload.new||!game)return;onlineRoom=payload.new;if(payload.new.fen&&payload.new.fen!==game.fen()){remoteUpdate=true;game.load(payload.new.fen);render();remoteUpdate=false}}).subscribe()}
+ async function saveOnlinePosition(){if(!sb||!onlineRoom||remoteUpdate)return;const {error}=await sb.from('wayu_rooms').update({fen:game.fen(),moves:game.history(),status:game.game_over()?'finished':'playing'}).eq('id',onlineRoom.id);if(error)setOnlineMessage('Yurish sinxronlanmadi: '+error.message)}
+ function init(){if(typeof Chess==='undefined'){status.textContent='Shaxmat moduli yuklanmadi. Internet aloqasini tekshiring.';return}game=new Chess();selected=null;legal=[];thinking=false;resultRecorded=false;render()}
+ function render(){board.innerHTML='';const files='abcdefgh',position=game.board();
+  for(let r=0;r<8;r++)for(let c=0;c<8;c++){const sq=files[c]+(8-r),piece=position[r][c],btn=document.createElement('button');btn.type='button';btn.className='square '+((r+c)%2?'dark':'light');btn.setAttribute('role','gridcell');btn.setAttribute('aria-label',sq+(piece?' '+(piece.color==='w'?'white ':'black ')+piece.type:''));
+   if(selected===sq)btn.classList.add('selected');if(legal.some(m=>m.to===sq))btn.classList.add(piece?'capture':'legal');if(piece)btn.textContent=pieceMap[piece.color+piece.type];btn.disabled=thinking||game.game_over()||(modeEl.value==='ai'&&game.turn()==='b')||(modeEl.value==='online'&&(!onlineRoom||game.turn()!==onlineSide));btn.addEventListener('click',()=>clickSquare(sq));board.appendChild(btn)}
+  const en=lang==='en';let msg=game.turn()==='w'?(en?'White to move.':'Oq donalar yuradi.'):(en?'Black to move.':'Qora donalar yuradi.');
+  if(game.in_checkmate())msg=en?'Checkmate! Game over.':'Mot! O‘yin tugadi.';else if(game.in_draw())msg=en?'Draw. Game over.':'Durang. O‘yin tugadi.';else if(game.in_check())msg=(en?'Check! ':'Shax! ')+msg;
+  if(thinking)msg=en?'AI is thinking…':'AI yurishni o‘ylayapti…';status.textContent=msg;
+  if(game.game_over())recordResult();
+ }
+ function clickSquare(sq){if(!game||game.game_over()||thinking||(modeEl.value==='ai'&&game.turn()==='b'))return;const piece=game.get(sq);
+  if(selected){const move=game.move({from:selected,to:sq,promotion:'q'});if(move){selected=null;legal=[];render();if(modeEl.value==='online')saveOnlinePosition();if(modeEl.value==='ai'&&!game.game_over())setTimeout(makeAIMove,250);return}
+   if(piece&&piece.color===game.turn()){selected=sq;legal=game.moves({square:sq,verbose:true});render();return}selected=null;legal=[];render();return}
+  if(piece&&piece.color===game.turn()){selected=sq;legal=game.moves({square:sq,verbose:true});render()}}
+ function recordResult(){if(resultRecorded)return;resultRecorded=true;if(modeEl.value!=='ai')return;const ai=true;let outcome='draw';if(game.in_checkmate())outcome=game.turn()==='b'?'win':'loss';
+  if(outcome==='win'){stats.wins++;stats.points+=3;if(ai)stats.elo+=12}else if(outcome==='loss'){stats.losses++;if(ai)stats.elo=Math.max(100,stats.elo-10)}else{stats.draws++;stats.points+=1;if(ai)stats.elo+=2}
+  stats.games.unshift({date:new Date().toISOString(),result:outcome,mode:modeEl.value});stats.games=stats.games.slice(0,30);saveStats();
+ }
+ function makeAIMove(){if(!game||game.game_over()||game.turn()!=='b')return;thinking=true;render();
+  const depth=Number(levelEl.value)+1;
+  if(engineReady&&engine){engine.postMessage('position fen '+game.fen());engine.postMessage('go depth '+(depth+1));return}
+  // Legal-move fallback keeps AI playable if the external Stockfish worker is blocked.
+  setTimeout(()=>{if(!game||game.game_over())return;const moves=game.moves({verbose:true});if(!moves.length){thinking=false;render();return}
+   const chosen=chooseFallbackMove(moves,Number(levelEl.value));game.move({from:chosen.from,to:chosen.to,promotion:'q'});thinking=false;render()},300);
+ }
+ function chooseFallbackMove(moves,level){const values={p:100,n:320,b:330,r:500,q:900,k:20000};let scored=moves.map(m=>{let score=Math.random()*18;if(m.captured)score+=values[m.captured]||0;if(m.promotion)score+=800;if(m.san&&m.san.includes('+'))score+=35;if(m.san&&m.san.includes('#'))score+=10000;return{m,score}});scored.sort((a,b)=>b.score-a.score);const pool=level===1?scored.slice(0,Math.min(8,scored.length)):level===2?scored.slice(0,Math.min(4,scored.length)):scored.slice(0,Math.min(2,scored.length));return pool[Math.floor(Math.random()*pool.length)].m}
+ function startEngine(){try{engine=new Worker('https://cdn.jsdelivr.net/npm/stockfish@16.0.0/src/stockfish-16.0.js');engine.onmessage=function(e){const line=String(e.data||'');if(line==='uciok'){engine.postMessage('isready')}else if(line==='readyok'){engineReady=true;engineFailed=false;engine.postMessage('setoption name Skill Level value '+({1:2,2:10,3:20}[levelEl.value]));engineStatus.textContent='Stockfish AI tayyor.'}else if(line.startsWith('bestmove')){const uci=line.split(/\s+/)[1];if(uci&&uci!=='(none)'&&game&&game.turn()==='b'){const from=uci.slice(0,2),to=uci.slice(2,4),promotion=uci[4]||'q';try{game.move({from,to,promotion})}catch(e){ } }thinking=false;render()}};engine.onerror=function(){engineFailed=true;engineReady=false;engineStatus.textContent='Stockfish ulanmagan — zaxira AI ishlaydi.';try{engine.terminate()}catch(e){}engine=null};engine.postMessage('uci')}catch(e){engineFailed=true;engineStatus.textContent='Stockfish ulanmagan — zaxira AI ishlaydi.'}}
+ document.getElementById('undoMove').addEventListener('click',()=>{if(!game||thinking||modeEl.value==='online')return;game.undo();if(modeEl.value==='ai'&&game.turn()==='b')game.undo();selected=null;legal=[];resultRecorded=false;render()});
+ document.getElementById('resetBoard').addEventListener('click',init);modeEl.addEventListener('change',()=>{onlineControls.hidden=modeEl.value!=='online';if(modeEl.value!=='online'){onlineRoom=null;onlineSide=null}init()});document.getElementById('createRoom').addEventListener('click',createOnlineRoom);document.getElementById('joinRoom').addEventListener('click',joinOnlineRoom);levelEl.addEventListener('change',()=>{if(engineReady&&engine)engine.postMessage('setoption name Skill Level value '+({1:2,2:10,3:20}[levelEl.value]))});document.getElementById('playerName').addEventListener('change',updateStats);
+ const lib=document.createElement('script');lib.src='https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js';lib.onload=function(){init();startEngine()};lib.onerror=()=>{status.textContent='Shaxmat modulini yuklab bo‘lmadi.'};document.head.appendChild(lib);initSupabase();onlineControls.hidden=modeEl.value!=='online';updateStats();
+})();
+
+/* ----- Orqa fon animatsiyasi: harakatlanuvchi taxta + suzuvchi donalar ----- */
+(function(){
+ var c=document.getElementById('bg'),x=c.getContext('2d'),W,H,mx=0,my=0,tx=0,ty=0,t=0;
+ var G=['♚','♛','♜','♝','♞','♟'],items=[],spark=[];
+ var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+ function size(){var r=devicePixelRatio||1;W=innerWidth;H=innerHeight;c.width=W*r;c.height=H*r;x.setTransform(r,0,0,r,0,0)}
+ size();addEventListener('resize',size);
+ addEventListener('pointermove',function(e){tx=(e.clientX/W-.5);ty=(e.clientY/H-.5)});
+ var n=Math.min(22,Math.round(innerWidth/55))+6;
+ for(var i=0;i<n;i++)items.push({ch:G[i%6],x:Math.random()*W,y:Math.random()*H,s:46+Math.random()*90,v:.18+Math.random()*.45,r:Math.random()*6.28,w:(Math.random()-.5)*.006,ph:Math.random()*6.28,gold:i%3!==0,z:.3+Math.random()*.7});
+ for(var j=0;j<40;j++)spark.push({x:Math.random()*W,y:Math.random()*H,v:.15+Math.random()*.5,s:1+Math.random()*2});
+ function board(){var S=110,off=(t*.25)%(S*2);
+  x.save();x.translate(-S*2,-S*2);
+  x.globalAlpha=.07;x.fillStyle='#d4a63c';
+  for(var r=0;r<H/S+5;r++)for(var q=0;q<W/S+5;q++){if((r+q)%2===0)x.fillRect(q*S+off-S+mx*20,r*S+off*0+(off/2)+my*20,S,S)}
+  x.restore()}
+ function frame(){t++;mx+=(tx-mx)*.04;my+=(ty-my)*.04;x.clearRect(0,0,W,H);
+  board();
+  spark.forEach(function(p){x.globalAlpha=.5;x.fillStyle='#f3efe3';x.beginPath();x.arc(p.x,p.y,p.s,0,6.283);x.fill();if(!reduce){p.y-=p.v;if(p.y<-5){p.y=H+5;p.x=Math.random()*W}}});
+  items.forEach(function(o){x.save();
+   x.translate(o.x+Math.sin(t*.008+o.ph)*30+mx*60*o.z,o.y+my*40*o.z);x.rotate(o.r+Math.sin(t*.01+o.ph)*.25);
+   x.globalAlpha=.12+.18*o.z;x.font=o.s+'px serif';x.textAlign='center';x.textBaseline='middle';
+   x.shadowColor=o.gold?'rgba(212,166,60,.9)':'rgba(255,255,255,.7)';x.shadowBlur=24;
+   x.fillStyle=o.gold?'#d4a63c':'#f3efe3';x.fillText(o.ch,0,0);x.restore();
+   if(!reduce){o.y-=o.v;o.r+=o.w;if(o.y<-120){o.y=H+120;o.x=Math.random()*W}}});
+  if(!reduce)requestAnimationFrame(frame)}
+ frame();
+})();
+</script>
+</body>
+</html>
